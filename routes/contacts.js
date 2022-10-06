@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const contactsController = require('../controllers/contacts');
+const validation = require('../middleware/validate');
+
 
 //Get all Contacts
 router.get('/', contactsController.getAll);
@@ -10,10 +12,10 @@ router.get('/', contactsController.getAll);
 router.get('/:id', contactsController.getSingle);
 
 //Create a contact
-router.post('/', contactsController.createContact);
+router.post('/', validation.saveContact, contactsController.createContact);
 
-//Update contact based on ID
-router.put('/:id', contactsController.updateContact);
+//Update a contact
+router.put('/:id', validation.saveContact, contactsController.updateContact);
 
 //Delete contact by ID
 router.delete('/:id', contactsController.deleteContact);
